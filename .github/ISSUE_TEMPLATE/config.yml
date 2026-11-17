@@ -1,11 +1,14 @@
 blank_issues_enabled: true
 contact_links:
+  - name: "💝 Registrar mi apoyo / Register my support"
+    url: https://github.com/senyclever/senysync-studio/issues/new?template=supporter.yml
+    about: "¿Donaste? Aparece en agradecimientos / Donated? Get listed as a supporter"
   - name: "🚀 Abrir la app / Launch app"
     url: https://senyclever.github.io/senysync-studio/app.html
     about: "Prueba primero aquí / Try it here first"
   - name: "🌐 Página del proyecto / Project page"
     url: https://senyclever.github.io/senysync-studio/
-    about: "Presentación, características y donaciones / Overview, features and donations"
-  - name: "💝 Donaciones / Donations"
-    url: https://github.com/senyclever/senysync-studio/blob/main/DONATIONS.md
-    about: "BTC · ETH · BSC · TRON · SOL"
+    about: "Presentación, características y direcciones / Overview, features and addresses"
+  - name: "🏆 Colaboradores / Supporters"
+    url: https://github.com/senyclever/senysync-studio/blob/main/SUPPORTERS.md
+    about: "Quién ha apoyado el proyecto / Who has supported the project"
