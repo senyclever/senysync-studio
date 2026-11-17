@@ -1,0 +1,59 @@
+name: "💝 Colaborador / Supporter"
+description: "Registra tu apoyo y aparece en agradecimientos / Log your support and get listed"
+labels: ["supporter"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Gracias por apoyar el proyecto. Rellenar esto es **opcional**: la donación ya llegó y no depende de este formulario.
+        Thank you for supporting the project. This form is **optional**: your donation already arrived and does not depend on it.
+
+        ⚠️ Este issue es público. **Nunca** compartas claves privadas, frases semilla ni credenciales de tu monedero.
+        ⚠️ This issue is public. **Never** share private keys, seed phrases or wallet credentials.
+  - type: input
+    id: display
+    attributes:
+      label: Nombre o alias a mostrar / Name or alias to display
+      description: Escribe "Anónimo" si prefieres no aparecer. / Write "Anonymous" if you prefer not to be listed.
+      placeholder: "Tu alias / Your alias"
+    validations:
+      required: true
+  - type: dropdown
+    id: network
+    attributes:
+      label: Red usada / Network used
+      options:
+        - Bitcoin (BTC)
+        - Ethereum (ETH · ERC-20)
+        - BNB Smart Chain (BSC · BEP-20)
+        - TRON (TRC-20)
+        - Solana (SOL · SPL)
+        - Prefiero no decirlo / Prefer not to say
+    validations:
+      required: true
+  - type: input
+    id: txhash
+    attributes:
+      label: Hash de la transacción / Transaction hash
+      description: Opcional. Solo el hash, nunca el monto ni la dirección de origen si no quieres. / Optional. Hash only, never the amount or your source address if you prefer not to.
+      placeholder: "hash de la transacción / transaction hash"
+  - type: input
+    id: link
+    attributes:
+      label: Enlace que quieres mostrar / Link you want shown
+      description: Opcional. Tu web, GitHub, X, Bandcamp, Spotify… / Optional. Your site, GitHub, X, Bandcamp, Spotify…
+      placeholder: "https://…"
+  - type: textarea
+    id: message
+    attributes:
+      label: Mensaje / Message
+      description: Opcional. Una línea si quieres decir algo. / Optional. One line if you want to say something.
+  - type: checkboxes
+    id: consent
+    attributes:
+      label: Confirmación / Confirmation
+      options:
+        - label: Entiendo que este issue es público y que mi nombre y enlace pueden aparecer en SUPPORTERS.md / I understand this issue is public and my name and link may appear in SUPPORTERS.md
+          required: true
+        - label: No he incluido claves privadas, frases semilla ni datos sensibles / I have not included private keys, seed phrases or sensitive data
+          required: true
