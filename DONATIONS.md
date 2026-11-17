@@ -50,11 +50,21 @@ BzSShk73WJmADmXjPRwc9K8uochJHYrGYa3CSxBZKC6c
 - Verifica la dirección completa, carácter por carácter, antes de enviar.
 - TRON, BSC y Solana suelen tener comisiones bajas; Ethereum puede ser cara.
 - Para un monto grande, haz antes una prueba pequeña.
-- Guarda el hash de la transacción si quieres aparecer en agradecimientos.
 
 ### Agradecimientos
 
-Para aparecer como colaborador, abre un [Issue](https://github.com/senyclever/senysync-studio/issues) con el nombre o alias que quieras mostrar y el hash de la transacción. Es opcional.
+¿Quieres aparecer como colaborador? Rellena el formulario y listo:
+
+### 👉 [**Registrar mi apoyo / Register my support**](https://github.com/senyclever/senysync-studio/issues/new?template=supporter.yml)
+
+Se abre un formulario con cuatro campos: el nombre o alias que quieras mostrar, la red que usaste, el hash de la transacción (opcional) y un enlace tuyo si quieres que aparezca.
+
+- **Es opcional.** Tu donación ya llegó; el formulario solo sirve para el agradecimiento público.
+- **Puedes ser anónimo.** Escribe "Anónimo" en el nombre y no se publica nada tuyo.
+- **Nunca compartas claves privadas ni frases semilla.** El hash de la transacción es público en la blockchain; tus credenciales no.
+- Los nombres se publican en [**SUPPORTERS.md**](SUPPORTERS.md).
+
+Si el formulario no carga, usa [**Blank issue**](https://github.com/senyclever/senysync-studio/issues/new) y escribe lo mismo a mano.
 
 ---
 
@@ -103,11 +113,21 @@ BzSShk73WJmADmXjPRwc9K8uochJHYrGYa3CSxBZKC6c
 - Verify the full address character by character before sending.
 - TRON, BSC and Solana usually have low fees; Ethereum can be expensive.
 - For a large amount, send a small test first.
-- Keep the transaction hash if you want to be listed as a supporter.
 
 ### Acknowledgements
 
-To be listed as a supporter, open an [Issue](https://github.com/senyclever/senysync-studio/issues) with the name or alias you want shown and the transaction hash. Optional.
+Want to be listed as a supporter? Fill in the form and you are done:
+
+### 👉 [**Register my support / Registrar mi apoyo**](https://github.com/senyclever/senysync-studio/issues/new?template=supporter.yml)
+
+It opens a form with four fields: the name or alias you want shown, the network you used, the transaction hash (optional) and a link of yours if you want it displayed.
+
+- **It is optional.** Your donation already arrived; the form is only for the public thank-you.
+- **You can stay anonymous.** Write "Anonymous" as the name and nothing of yours gets published.
+- **Never share private keys or seed phrases.** A transaction hash is public on the blockchain; your credentials are not.
+- Names are published in [**SUPPORTERS.md**](SUPPORTERS.md).
+
+If the form does not load, use a [**Blank issue**](https://github.com/senyclever/senysync-studio/issues/new) and write the same by hand.
 
 ---
 
