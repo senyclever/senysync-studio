@@ -1,0 +1,47 @@
+name: "🐛 Fallo / Bug"
+description: "Algo no funciona como debería / Something does not work as it should"
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Gracias por reportar. Cuanto más preciso, más rápido se arregla.
+        Thanks for reporting. The more precise, the faster it gets fixed.
+  - type: textarea
+    id: what
+    attributes:
+      label: Qué pasa / What happens
+      description: Describe el fallo y qué esperabas. / Describe the bug and what you expected.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Pasos / Steps
+      placeholder: |
+        1. Ve a... / Go to...
+        2. Pulsa... / Press...
+        3. Mira... / See...
+    validations:
+      required: true
+  - type: input
+    id: selftest
+    attributes:
+      label: Self-Test
+      description: "Exportar → Self-Test. Ejemplo / Example: 151/153"
+      placeholder: "153/153"
+    validations:
+      required: true
+  - type: input
+    id: env
+    attributes:
+      label: Navegador y sistema / Browser and OS
+      placeholder: "Firefox 130 · EndeavourOS / Chrome · Android 14"
+    validations:
+      required: true
+  - type: textarea
+    id: boot
+    attributes:
+      label: Franja roja de arranque / Red boot banner
+      description: Si aparece, pega el texto exacto. / If it appears, paste the exact text.
+      render: text
