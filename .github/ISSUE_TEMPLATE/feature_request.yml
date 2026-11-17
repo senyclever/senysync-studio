@@ -1,0 +1,22 @@
+name: "✨ Mejora / Feature"
+description: "Propón una idea / Propose an idea"
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Qué problema resuelve / What problem it solves
+      description: Describe la necesidad real, no solo la solución. / Describe the real need, not only the solution.
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Propuesta / Proposal
+    validations:
+      required: true
+  - type: markdown
+    attributes:
+      value: |
+        Reglas del proyecto: un solo archivo, sin dependencias, sin red, ES5, bilingüe, y la IA nunca dibuja texto ni anima.
+        Project rules: single file, no dependencies, no network, ES5, bilingual, and the AI never draws text or animates.
