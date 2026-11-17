@@ -1,0 +1,54 @@
+# Sistema / System
+.DS_Store
+Thumbs.db
+desktop.ini
+*.log
+*.tmp
+
+# Editores / Editors
+.vscode/
+.idea/
+*.swp
+
+# Secretos / Secrets — nunca publicar
+.env
+.env.local
+*.pem
+*.key
+seed*.txt
+wallet*.json
+
+# ── Exportaciones de SenySync: TU OBRA, no van al repo ──
+*_SenySync.json
+*_preset.json
+*_render_request.json
+*_covers_request.json
+*_script_request.json
+*_sentinels_render.json
+*_render_skeleton.json
+*_covers_skeleton.json
+*_refs.json
+*_final_report.txt
+*_checklist.txt
+*_letra.txt
+*_lyrics_template.txt
+*_bars.csv
+*_markers.*
+*.srt
+*.vtt
+*.ass
+*_render.webm
+*_render.mp4
+*_frames_*.zip
+*_covers.zip
+*_frame_*.png
+aesthetic_*.txt
+senysync_universal_pack.json
+senysync_ledger.json
+senysync_batch.json
+SenySync_Studio_Manual.txt
+
+# Copias locales de trabajo / Local working copies
+SenySync_studio_v1.html
+respaldo*/
+backup*/
