@@ -104,7 +104,7 @@ Puedes usar, modificar y redistribuir este software, **incluso comercialmente**,
 
 ### Donaciones
 
-Si te resulta útil, una donación voluntaria sostiene el desarrollo. **No es obligatoria y no desbloquea funciones.** Ver [DONATIONS.md](DONATIONS.md).
+Si te resulta útil, una donación voluntaria sostiene el desarrollo. **No es obligatoria y no desbloquea funciones.** Ver [DONATIONS.md](DONATIONS.md) · [Colaboradores](SUPPORTERS.md) · [Registrar mi apoyo](https://github.com/senyclever/senysync-studio/issues/new?template=supporter.yml).
 
 ---
 
@@ -191,7 +191,7 @@ You may use, modify and redistribute this software, **even commercially**, at no
 
 ### Donations
 
-If it helps you, a voluntary donation sustains development. **It is not required and unlocks nothing.** See [DONATIONS.md](DONATIONS.md).
+If it helps you, a voluntary donation sustains development. **It is not required and unlocks nothing.** See [DONATIONS.md](DONATIONS.md) · [Supporters](SUPPORTERS.md) · [Register my support](https://github.com/senyclever/senysync-studio/issues/new?template=supporter.yml).
 
 ---
 
