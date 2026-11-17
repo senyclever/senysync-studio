@@ -197,8 +197,10 @@ If it helps you, a voluntary donation sustains development. **It is not required
 
 <div align="center">
 
+<img src="assets/logo.png" alt="Seny Clever" width="88">
+
 **SenySync Studio** · v1 · Build 1 · By Seny Clever
 
-[Website](https://senyclever.github.io/senysync-studio/) · [App](https://senyclever.github.io/senysync-studio/app.html) · [Issues](https://github.com/senyclever/senysync-studio/issues) · [Donate](DONATIONS.md)
+[Website](https://senyclever.github.io/senysync-studio/) · [App](https://senyclever.github.io/senysync-studio/app.html) · [Issues](https://github.com/senyclever/senysync-studio/issues) · [Donate](DONATIONS.md) · [Supporters](SUPPORTERS.md)
 
 </div>
