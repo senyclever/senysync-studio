@@ -1,0 +1,17 @@
+SenySync Studio
+Copyright 2026 Seny Clever (Carlos Carrillo)
+
+This product includes software developed by Seny Clever (Carlos Carrillo).
+
+SenySync Studio is a single-file, local-first studio for AI music videos:
+synchronized lyrics and timing, cinematic script, animated SVG render,
+SVG covers and compositing over real video.
+
+Licensed under the Apache License, Version 2.0.
+You may obtain a copy of the License at:
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Author: Seny Clever (Carlos Carrillo)
+Project: https://github.com/senyclever/senysync-studio
+Website: https://senyclever.github.io/senysync-studio/

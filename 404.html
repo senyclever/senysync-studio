@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>404 · SenySync Studio</title>
+<meta name="theme-color" content="#070711">
+<link rel="icon" type="image/svg+xml" href="/senysync-studio/assets/favicon.svg">
+<style>
+:root{--cyan:#00e5ff;--mag:#ff2e88;--dim:#8888a8;--txt:#d8d8e8;--border:#2a2a45;--panel2:#181828}
+*{box-sizing:border-box;margin:0;padding:0;scrollbar-width:thin;scrollbar-color:var(--cyan) var(--panel2)}
+::-webkit-scrollbar{width:10px}::-webkit-scrollbar-track{background:var(--panel2)}
+::-webkit-scrollbar-thumb{background:linear-gradient(180deg,var(--cyan),var(--mag));border-radius:8px;border:2px solid var(--panel2)}
+body{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;background:#070711;color:var(--txt);font-family:'Segoe UI',system-ui,-apple-system,Helvetica,Arial,sans-serif;text-align:center;background-image:radial-gradient(900px 520px at 15% -10%,rgba(0,229,255,.16),transparent 60%),radial-gradient(800px 560px at 100% 110%,rgba(255,46,136,.16),transparent 58%)}
+.box{max-width:560px}
+.code{font-family:Consolas,'Courier New',monospace;font-size:clamp(64px,18vw,132px);font-weight:800;line-height:1;background:linear-gradient(96deg,var(--cyan),var(--mag));-webkit-background-clip:text;background-clip:text;color:transparent}
+h1{font-size:clamp(19px,4vw,26px);margin:10px 0 8px;color:var(--cyan)}
+p{color:var(--dim);font-size:15px;margin-bottom:6px}
+.row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:22px}
+a.btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:12px 22px;border-radius:10px;border:1px solid var(--border);background:var(--panel2);color:var(--txt);text-decoration:none;font-weight:600;font-size:14.5px}
+a.btn:hover{border-color:var(--cyan);color:var(--cyan)}
+a.btn.p{background:linear-gradient(135deg,rgba(0,229,255,.18),rgba(255,46,136,.14));border-color:var(--cyan);color:var(--cyan)}
+.bar{display:flex;gap:4px;justify-content:center;margin:24px 0 4px}
+.bar i{display:block;width:9px;border-radius:3px;background:linear-gradient(180deg,var(--cyan),var(--mag));opacity:.75}
+</style>
+</head>
+<body><div class="box">
+<div class="code">404</div>
+<div class="bar"><i style="height:14px"></i><i style="height:30px"></i><i style="height:48px"></i><i style="height:22px"></i><i style="height:60px"></i><i style="height:34px"></i><i style="height:16px"></i><i style="height:44px"></i><i style="height:26px"></i><i style="height:52px"></i><i style="height:18px"></i><i style="height:36px"></i></div>
+<h1 data-es="Esta pista no existe en el Timeline" data-en="This track is not on the Timeline">Esta pista no existe en el Timeline</h1>
+<p data-es="La página que buscas no está en el proyecto. Vuelve al inicio o abre directamente el estudio." data-en="The page you are looking for is not in the project. Go back home or open the studio directly.">La página que buscas no está en el proyecto. Vuelve al inicio o abre directamente el estudio.</p>
+<div class="row">
+<a class="btn p" href="/senysync-studio/" data-es="🏠 Inicio" data-en="🏠 Home">🏠 Inicio</a>
+<a class="btn" href="/senysync-studio/app.html" data-es="🚀 Abrir la app" data-en="🚀 Launch app">🚀 Abrir la app</a>
+<a class="btn" href="https://github.com/senyclever/senysync-studio">GitHub</a>
+</div>
+</div>
+<script>
+(function(){
+var l='es';
+try{var s=localStorage.getItem('senysync_site_lang');l=s||(((navigator.language||'es').toLowerCase().indexOf('es')===0)?'es':'en');}catch(e){}
+document.documentElement.lang=l;
+var n=document.querySelectorAll('[data-es]');
+for(var i=0;i<n.length;i++){var v=n[i].getAttribute(l==='es'?'data-es':'data-en');if(v!==null)n[i].textContent=v;}
+})();
+</script>
+</body>
+</html>

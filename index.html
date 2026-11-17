@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>SenySync Studio · Estudio local 4-en-1 para videoclips con IA</title>
+<meta name="description" content="Estudio local 4-en-1 para videoclips con IA: letra sincronizada, guion cinematográfico, render SVG animado y portadas. Sin servidores, sin cuentas, sin librerías. Local 4-in-1 studio for AI music videos.">
+<meta name="theme-color" content="#070711">
+<meta name="author" content="Seny Clever (Carlos Carrillo)">
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<meta property="og:type" content="website">
+<meta property="og:title" content="SenySync Studio · AI Music Video 4-in-1">
+<meta property="og:description" content="Letra, guion, render SVG y portadas en un solo archivo. 100% local, sin servidor. Apache 2.0.">
+<meta property="og:url" content="https://senyclever.github.io/senysync-studio/">
+<meta property="og:image" content="https://senyclever.github.io/senysync-studio/assets/og-cover.png">
+<meta property="og:image:width" content="1280">
+<meta property="og:image:height" content="640">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="SenySync Studio · AI Music Video 4-in-1">
+<meta name="twitter:description" content="Letra, guion, render SVG y portadas en un solo archivo. 100% local. Apache 2.0.">
+<meta name="twitter:image" content="https://senyclever.github.io/senysync-studio/assets/og-cover.png">
+<style>
+:root{--bg:#070711;--panel:#12121f;--panel2:#181828;--panel3:#1e1e30;--border:#2a2a45;--cyan:#00e5ff;--mag:#ff2e88;--green:#39ff8e;--amber:#ffb454;--violet:#a78bfa;--txt:#d8d8e8;--dim:#8888a8;--mono:Consolas,'DejaVu Sans Mono','Courier New',monospace;--sans:'Segoe UI',system-ui,-apple-system,Helvetica,Arial,sans-serif;--nav:66px}
+*{box-sizing:border-box;margin:0;padding:0;scrollbar-width:thin;scrollbar-color:var(--cyan) var(--panel2)}
+::-webkit-scrollbar{width:10px;height:10px}
+::-webkit-scrollbar-track{background:var(--panel2);border-radius:8px}
+::-webkit-scrollbar-thumb{background:linear-gradient(180deg,var(--cyan),var(--mag));border-radius:8px;border:2px solid var(--panel2)}
+::-webkit-scrollbar-thumb:hover{background:linear-gradient(180deg,var(--mag),var(--cyan))}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--txt);font-family:var(--sans);line-height:1.6;overflow-x:hidden}
+.sky{position:fixed;inset:0;z-index:-2;background:radial-gradient(1100px 620px at 10% -12%,rgba(0,229,255,.16),transparent 62%),radial-gradient(1000px 700px at 105% 108%,rgba(255,46,136,.16),transparent 58%),radial-gradient(760px 520px at 78% 22%,rgba(167,139,250,.10),transparent 60%),linear-gradient(180deg,#0a0a12,#070711)}
+.sky:after{content:"";position:absolute;inset:-25%;background:radial-gradient(520px 320px at 30% 40%,rgba(0,229,255,.13),transparent 60%),radial-gradient(460px 300px at 70% 65%,rgba(255,46,136,.12),transparent 60%);animation:drift 34s ease-in-out infinite alternate}
+@keyframes drift{0%{transform:translate3d(-3%,-2%,0) scale(1)}100%{transform:translate3d(4%,3%,0) scale(1.12)}}
+.grain{position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.05;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E")}
+a{color:var(--cyan);text-decoration:none}a:hover{text-decoration:underline}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+header{position:fixed;top:0;left:0;right:0;z-index:60;backdrop-filter:blur(16px);background:rgba(10,10,18,.88);border-bottom:1px solid var(--border)}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:11px 20px;max-width:1120px;margin:0 auto;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:9px;font-weight:800;color:var(--cyan);font-size:16px;white-space:nowrap}
+.brand svg{flex-shrink:0}
+.navlinks{display:flex;gap:7px;align-items:center;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--panel2);border:1px solid var(--border);color:var(--txt);padding:9px 15px;border-radius:9px;font-size:13.5px;font-weight:600;cursor:pointer;min-height:42px;font-family:inherit;transition:border-color .18s,color .18s,background .18s,transform .06s}
+.btn:hover{border-color:var(--cyan);color:var(--cyan);text-decoration:none}
+.btn:active{transform:translateY(1px)}
+.btn.on{border-color:var(--cyan);color:var(--cyan);background:rgba(0,229,255,.12)}
+.btn.primary{background:linear-gradient(135deg,rgba(0,229,255,.18),rgba(255,46,136,.14));border-color:var(--cyan);color:var(--cyan)}
+.btn.big{min-height:56px;font-size:16.5px;padding:14px 26px}
+main{padding-top:var(--nav)}
+.hero{padding:52px 0 26px;text-align:center}
+.hero h1{font-size:clamp(29px,6vw,56px);font-weight:800;background:linear-gradient(96deg,var(--cyan),var(--violet) 52%,var(--mag));-webkit-background-clip:text;background-clip:text;color:transparent;line-height:1.14;margin-bottom:14px}
+.hero p{color:var(--dim);font-size:clamp(15px,2.3vw,19px);max-width:780px;margin:0 auto 8px}
+.cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:24px}
+.pills{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:22px}
+.pill{font-family:var(--mono);font-size:12px;padding:6px 14px;border-radius:20px;background:var(--panel2);border:1px solid var(--border);color:var(--dim)}
+.pill.g{border-color:var(--green);color:var(--green)}.pill.c{border-color:var(--cyan);color:var(--cyan)}.pill.v{border-color:var(--violet);color:var(--violet)}.pill.a{border-color:var(--amber);color:var(--amber)}
+.shot{margin:32px 0;border:1px solid var(--border);border-radius:16px;overflow:hidden;background:var(--panel);box-shadow:0 24px 70px rgba(0,0,0,.5)}
+.shot img{display:block;width:100%;height:auto}
+section{padding:34px 0;scroll-margin-top:88px}
+h2{font-size:clamp(21px,3.4vw,30px);color:var(--cyan);margin-bottom:8px;font-weight:800}
+.sub{color:var(--dim);margin-bottom:20px;font-size:15px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px}
+.card{background:linear-gradient(160deg,var(--panel),rgba(18,18,31,.6));border:1px solid var(--border);border-radius:13px;padding:20px;border-left:3px solid var(--cyan);transition:border-color .2s,transform .2s}
+.card:hover{transform:translateY(-3px);border-color:var(--cyan)}
+.card.m{border-left-color:var(--mag)}.card.m:hover{border-color:var(--mag)}
+.card.g{border-left-color:var(--green)}.card.g:hover{border-color:var(--green)}
+.card.a{border-left-color:var(--amber)}.card.a:hover{border-color:var(--amber)}
+.card h3{font-size:16px;margin-bottom:8px;color:var(--txt)}
+.card p{font-size:14px;color:var(--dim)}
+.num{font-family:var(--mono);font-size:12px;color:var(--dim);display:block;margin-bottom:6px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(148px,1fr));gap:12px;margin-top:16px}
+.stat{background:var(--panel2);border:1px solid var(--border);border-radius:11px;padding:16px;text-align:center}
+.stat b{display:block;font-family:var(--mono);font-size:26px;color:var(--cyan)}
+.stat span{font-size:12px;color:var(--dim)}
+.steps{counter-reset:s;display:grid;gap:11px}
+.step{background:var(--panel);border:1px solid var(--border);border-radius:11px;padding:16px 16px 16px 58px;position:relative;font-size:14px}
+.step:before{counter-increment:s;content:counter(s);position:absolute;left:15px;top:14px;width:29px;height:29px;border-radius:50%;background:rgba(0,229,255,.15);border:1px solid var(--cyan);color:var(--cyan);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:13px;font-weight:700}
+.note{background:rgba(255,180,84,.09);border-left:3px solid var(--amber);padding:14px 16px;border-radius:0 10px 10px 0;color:var(--amber);font-size:14px;margin-top:16px}
+.wallet{background:var(--panel);border:1px solid var(--border);border-radius:11px;padding:13px 14px;margin-bottom:10px;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.wallet .wmeta{flex:1;min-width:200px}
+.wallet b{display:block;font-size:12.5px;color:var(--cyan);margin-bottom:6px;font-family:var(--mono);letter-spacing:.3px}
+.wallet code{display:block;word-break:break-all;color:var(--txt);font-size:12px;font-family:var(--mono);background:var(--panel2);border:1px solid var(--border);border-radius:6px;padding:8px 10px}
+.copy{min-height:40px;font-size:12.5px;padding:8px 14px;white-space:nowrap}
+.copy.done{border-color:var(--green);color:var(--green);background:rgba(57,255,142,.12)}
+.toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%) translateY(14px);background:var(--panel3);border:1px solid var(--green);color:var(--green);padding:11px 20px;border-radius:10px;font-size:13.5px;z-index:90;opacity:0;pointer-events:none;transition:opacity .22s,transform .22s;max-width:92vw;text-align:center}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+footer{border-top:1px solid var(--border);margin-top:36px;padding:26px 0;text-align:center;color:var(--dim);font-size:13px}
+.js-reveal .reveal{opacity:0;transform:translateY(20px);transition:opacity .65s ease,transform .65s ease}
+.js-reveal .reveal.is-in{opacity:1;transform:none}
+@media(max-width:640px){.wrap{padding:0 14px}.nav{padding:9px 14px;gap:8px}.btn{padding:8px 12px;font-size:13px}.hero{padding:30px 0 18px}.btn.big{width:100%}.wallet .wmeta{min-width:100%}.copy{width:100%}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.sky:after{animation:none}.js-reveal .reveal{opacity:1;transform:none;transition:none}.card:hover{transform:none}}
+</style>
+</head>
+<body>
+<div class="sky"></div><div class="grain"></div>
+
+<header><div class="nav">
+<div class="brand"><svg width="22" height="22" viewBox="0 0 64 64" aria-hidden="true"><rect x="8" y="12" width="48" height="40" rx="6" fill="none" stroke="#00e5ff" stroke-width="5"/><path d="M26 30L44 39L26 48Z" fill="#ff2e88"/></svg> SenySync Studio</div>
+<div class="navlinks">
+<a class="btn navlink" href="#tools" data-es="Herramientas" data-en="Tools">Herramientas</a>
+<a class="btn navlink" href="#why" data-es="Ventajas" data-en="Why">Ventajas</a>
+<a class="btn navlink" href="#start" data-es="Empezar" data-en="Start">Empezar</a>
+<a class="btn navlink" href="#donate" data-es="Donar" data-en="Donate">Donar</a>
+<button class="btn" id="langBtn" type="button" aria-label="Language">EN</button>
+<a class="btn primary" href="app.html" data-es="Abrir la app" data-en="Launch app">Abrir la app</a>
+</div>
+</div></header>
+
+<main><div class="wrap">
+
+<div class="hero">
+<h1 data-es="De la letra de tu canción a un videoclip con IA" data-en="From your song lyrics to an AI music video">De la letra de tu canción a un videoclip con IA</h1>
+<p data-es="Cuatro herramientas en un solo archivo HTML, con el Timeline como eje maestro. Sin servidores, sin cuentas, sin subidas, sin librerías externas." data-en="Four tools in a single HTML file, with the Timeline as the master axis. No servers, no accounts, no uploads, no external libraries.">Cuatro herramientas en un solo archivo HTML, con el Timeline como eje maestro. Sin servidores, sin cuentas, sin subidas, sin librerías externas.</p>
+<p data-es="Funciona en escritorio y en teléfono. Bilingüe español e inglés." data-en="Works on desktop and phone. Bilingual Spanish and English.">Funciona en escritorio y en teléfono. Bilingüe español e inglés.</p>
+<div class="cta">
+<a class="btn primary big" href="app.html" data-es="🚀 Abrir SenySync Studio" data-en="🚀 Launch SenySync Studio">🚀 Abrir SenySync Studio</a>
+<a class="btn big" href="https://github.com/senyclever/senysync-studio" data-es="⭐ Ver en GitHub" data-en="⭐ View on GitHub">⭐ Ver en GitHub</a>
+</div>
+<div class="pills">
+<span class="pill g">Apache 2.0</span><span class="pill c" data-es="100% local" data-en="100% local">100% local</span><span class="pill v" data-es="Sin dependencias" data-en="Zero dependencies">Sin dependencias</span><span class="pill a">ES / EN</span><span class="pill">v1 · Build 1</span>
+</div>
+</div>
+
+<div class="shot reveal"><img src="assets/cover.svg" alt="SenySync Studio · Timeline, letra, guion, render y portadas" width="1280" height="640"></div>
+
+<section id="tools">
+<h2 class="reveal" data-es="Cuatro herramientas, un eje" data-en="Four tools, one axis">Cuatro herramientas, un eje</h2>
+<p class="sub reveal" data-es="Todo lo que creas en el Timeline alimenta los prompts, los subtítulos y el render." data-en="Everything you create on the Timeline feeds prompts, subtitles and the render.">Todo lo que creas en el Timeline alimenta los prompts, los subtítulos y el render.</p>
+<div class="grid">
+<div class="card reveal"><span class="num">01</span><h3 data-es="✍️ Letra sincronizada" data-en="✍️ Synced lyrics">✍️ Letra sincronizada</h3><p data-es="Verso a verso con tiempos exactos, energía E0-E3 e intérprete. Importa SRT sin música, usa plantilla o marca con la tecla L." data-en="Verse by verse with exact times, E0-E3 energy and interpreter. Import SRT without music, use a template or mark with the L key.">Verso a verso con tiempos exactos, energía E0-E3 e intérprete. Importa SRT sin música, usa plantilla o marca con la tecla L.</p></div>
+<div class="card m reveal"><span class="num">02</span><h3 data-es="🎬 Guion cinematográfico" data-en="🎬 Cinematic script">🎬 Guion cinematográfico</h3><p data-es="Partición con techo D, escenas, estéticas, motivo M0-M11, taxonomía de planos en 6 categorías y referencias de personaje." data-en="Partition with ceiling D, scenes, aesthetics, motif M0-M11, 6-category shot taxonomy and character references.">Partición con techo D, escenas, estéticas, motivo M0-M11, taxonomía de planos en 6 categorías y referencias de personaje.</p></div>
+<div class="card g reveal"><span class="num">03</span><h3 data-es="📹 Render SVG animado" data-en="📹 Animated SVG render">📹 Render SVG animado</h3><p data-es="La IA entrega arte estático por capas; el motor aplica parallax, pulso al reloj, partículas y glow. MP4 offline, WebM con audio o PNG por lotes." data-en="The AI delivers static layered art; the engine applies parallax, clock pulse, particles and glow. Offline MP4, WebM with audio or batched PNG.">La IA entrega arte estático por capas; el motor aplica parallax, pulso al reloj, partículas y glow. MP4 offline, WebM con audio o PNG por lotes.</p></div>
+<div class="card a reveal"><span class="num">04</span><h3 data-es="🖼 Portadas SVG" data-en="🖼 SVG covers">🖼 Portadas SVG</h3><p data-es="Key art de cine, no una captura. Tres niveles de lectura, re-escenificado por aspecto y título editable superpuesto por la app." data-en="Theatrical key art, not a screenshot. Three read tiers, re-staged per aspect and an editable title overlaid by the app.">Key art de cine, no una captura. Tres niveles de lectura, re-escenificado por aspecto y título editable superpuesto por la app.</p></div>
+</div>
+</section>
+
+<section id="why">
+<h2 class="reveal" data-es="Lo que lo hace distinto" data-en="What makes it different">Lo que lo hace distinto</h2>
+<p class="sub reveal" data-es="Decisiones de diseño que se notan desde el primer minuto." data-en="Design decisions you notice from the first minute.">Decisiones de diseño que se notan desde el primer minuto.</p>
+<div class="grid">
+<div class="card reveal"><h3 data-es="🔒 Privacidad real" data-en="🔒 Real privacy">🔒 Privacidad real</h3><p data-es="Todo ocurre en tu navegador. Cero peticiones de red, cero analítica externa. Tus archivos nunca salen de tu máquina." data-en="Everything happens in your browser. Zero network requests, zero external analytics. Your files never leave your machine.">Todo ocurre en tu navegador. Cero peticiones de red, cero analítica externa. Tus archivos nunca salen de tu máquina.</p></div>
+<div class="card m reveal"><h3 data-es="🎯 El Timeline manda" data-en="🎯 The Timeline rules">🎯 El Timeline manda</h3><p data-es="Reloj BPM o CSV de Sonic Visualiser, o el vídeo importado. Snap musical, loop por compases, guías en ambos bordes y checklist de producción." data-en="BPM clock or Sonic Visualiser CSV, or the imported video. Musical snap, bar-based loop, guides on both edges and a production checklist.">Reloj BPM o CSV de Sonic Visualiser, o el vídeo importado. Snap musical, loop por compases, guías en ambos bordes y checklist de producción.</p></div>
+<div class="card g reveal"><h3 data-es="🛡 Blindaje no bloqueante" data-en="🛡 Non-blocking armor">🛡 Blindaje no bloqueante</h3><p data-es="Auditoría mecánica de solo lectura: capas, texto, scripts, viewBox, halos, desenfoque y filtros. Avisa, jamás rechaza ni modifica tu arte." data-en="Read-only mechanical audit: layers, text, scripts, viewBox, halos, blur and filters. It warns, never rejects or modifies your art.">Auditoría mecánica de solo lectura: capas, texto, scripts, viewBox, halos, desenfoque y filtros. Avisa, jamás rechaza ni modifica tu arte.</p></div>
+<div class="card a reveal"><h3 data-es="🧭 Ayuda que enseña" data-en="🧭 Help that teaches">🧭 Ayuda que enseña</h3><p data-es="Buscador transversal, glosario de 26 términos, 9 recetas paso a paso y ruta guiada de 8 pasos que lee el estado real de tu proyecto." data-en="Cross-search, a 26-term glossary, 9 step-by-step recipes and an 8-step guided route that reads the real state of your project.">Buscador transversal, glosario de 26 términos, 9 recetas paso a paso y ruta guiada de 8 pasos que lee el estado real de tu proyecto.</p></div>
+</div>
+<div class="stats reveal">
+<div class="stat"><b>153</b><span data-es="tests internos" data-en="internal tests">tests internos</span></div>
+<div class="stat"><b>12</b><span data-es="pestañas" data-en="tabs">pestañas</span></div>
+<div class="stat"><b>0</b><span data-es="dependencias" data-en="dependencies">dependencias</span></div>
+<div class="stat"><b>1</b><span data-es="archivo HTML" data-en="HTML file">archivo HTML</span></div>
+</div>
+</section>
+
+<section id="start">
+<h2 class="reveal" data-es="Empezar en un minuto" data-en="Start in one minute">Empezar en un minuto</h2>
+<p class="sub reveal" data-es="Sin instalación, sin registro, sin conexión obligatoria." data-en="No install, no sign-up, no required connection.">Sin instalación, sin registro, sin conexión obligatoria.</p>
+<div class="steps">
+<div class="step reveal" data-es="Abre la app en el navegador, o descarga app.html y ábrelo con doble clic. No instala nada." data-en="Open the app in your browser, or download app.html and double-click it. It installs nothing.">Abre la app en el navegador, o descarga app.html y ábrelo con doble clic. No instala nada.</div>
+<div class="step reveal" data-es="En Config carga tu audio o vídeo y define el reloj: BPM o CSV de beats." data-en="In Settings load your audio or video and define the clock: BPM or beat CSV.">En Config carga tu audio o vídeo y define el reloj: BPM o CSV de beats.</div>
+<div class="step reveal" data-es="Crea secciones, añade la letra y genera los clips con tu duración objetivo." data-en="Create sections, add the lyrics and generate clips with your target duration.">Crea secciones, añade la letra y genera los clips con tu duración objetivo.</div>
+<div class="step reveal" data-es="Escribe tu biblia y tu Prompt Universal. Exporta el Guion para IA y pega la respuesta." data-en="Write your bible and Universal Prompt. Export the AI Script and paste the reply.">Escribe tu biblia y tu Prompt Universal. Exporta el Guion para IA y pega la respuesta.</div>
+<div class="step reveal" data-es="Exporta el JSON de Render, importa las escenas SVG y revisa con los centinelas." data-en="Export the Render JSON, import the SVG scenes and review with sentinels.">Exporta el JSON de Render, importa las escenas SVG y revisa con los centinelas.</div>
+<div class="step reveal" data-es="Exporta MP4, WebM o PNG desde el Estudio. Guarda siempre tu Proyecto .json." data-en="Export MP4, WebM or PNG from the Studio. Always save your Project .json.">Exporta MP4, WebM o PNG desde el Estudio. Guarda siempre tu Proyecto .json.</div>
+</div>
+<div class="note reveal" data-es="El MP4 offline es solo vídeo: el audio sigue en el WebM y en tu editor. La IA nunca dibuja texto; la app superpone subtítulos y título." data-en="Offline MP4 is video only: audio stays in the WebM and in your editor. The AI never draws text; the app overlays subtitles and title.">El MP4 offline es solo vídeo: el audio sigue en el WebM y en tu editor. La IA nunca dibuja texto; la app superpone subtítulos y título.</div>
+</section>
+
+<section id="donate">
+<h2 class="reveal" data-es="💝 Apoya el proyecto" data-en="💝 Support the project">💝 Apoya el proyecto</h2>
+<p class="sub reveal" data-es="Software libre bajo Apache 2.0: úsalo, modifícalo y redistribúyelo, incluso comercialmente, sin pagar nada. Una donación voluntaria sostiene el desarrollo; no desbloquea funciones." data-en="Free software under Apache 2.0: use, modify and redistribute it, even commercially, at no cost. A voluntary donation sustains development; it unlocks nothing.">Software libre bajo Apache 2.0: úsalo, modifícalo y redistribúyelo, incluso comercialmente, sin pagar nada. Una donación voluntaria sostiene el desarrollo; no desbloquea funciones.</p>
+<div class="note reveal" data-es="Envía únicamente por la red indicada. Usar otra red puede significar la pérdida permanente de los fondos." data-en="Send only on the stated network. Using a different network may mean permanent loss of funds.">Envía únicamente por la red indicada. Usar otra red puede significar la pérdida permanente de los fondos.</div>
+<div style="margin-top:16px">
+<div class="wallet reveal"><div class="wmeta"><b>Bitcoin (BTC) · Bitcoin · SegWit bc1</b><code>bc1qur64sugr5xznqxn4sy59yvmga0ufd9p43xzyrg</code></div><button class="btn copy" type="button" data-addr="bc1qur64sugr5xznqxn4sy59yvmga0ufd9p43xzyrg" data-es="Copiar" data-en="Copy">Copiar</button></div>
+<div class="wallet reveal"><div class="wmeta"><b>Ethereum (ETH) · Mainnet · ERC-20</b><code>0x714b071a1A7ecd2BE82f9216Bcd4A868Af179085</code></div><button class="btn copy" type="button" data-addr="0x714b071a1A7ecd2BE82f9216Bcd4A868Af179085" data-es="Copiar" data-en="Copy">Copiar</button></div>
+<div class="wallet reveal"><div class="wmeta"><b>BNB Smart Chain (BNB) · BSC · BEP-20</b><code>0x714b071a1A7ecd2BE82f9216Bcd4A868Af179085</code></div><button class="btn copy" type="button" data-addr="0x714b071a1A7ecd2BE82f9216Bcd4A868Af179085" data-es="Copiar" data-en="Copy">Copiar</button></div>
+<div class="wallet reveal"><div class="wmeta"><b>TRON (USDT TRC-20 / TRX) · TRON</b><code>TNq5n3DsL66ceJ1cBuFGh4JeAHXovawE1T</code></div><button class="btn copy" type="button" data-addr="TNq5n3DsL66ceJ1cBuFGh4JeAHXovawE1T" data-es="Copiar" data-en="Copy">Copiar</button></div>
+<div class="wallet reveal"><div class="wmeta"><b>Solana (SOL / USDT SPL) · Solana</b><code>BzSShk73WJmADmXjPRwc9K8uochJHYrGYa3CSxBZKC6c</code></div><button class="btn copy" type="button" data-addr="BzSShk73WJmADmXjPRwc9K8uochJHYrGYa3CSxBZKC6c" data-es="Copiar" data-en="Copy">Copiar</button></div>
+</div>
+<p class="sub reveal" style="margin-top:14px" data-es="Ethereum y BNB Smart Chain comparten la misma dirección EVM: elige la red correcta en tu monedero. TRON y Solana son redes distintas y usan cada una su propia dirección." data-en="Ethereum and BNB Smart Chain share the same EVM address: pick the right network in your wallet. TRON and Solana are different networks, each with its own address.">Ethereum y BNB Smart Chain comparten la misma dirección EVM: elige la red correcta en tu monedero. TRON y Solana son redes distintas y usan cada una su propia dirección.</p>
+</section>
+
+</div></main>
+
+<footer><div class="wrap">
+<p>© 2026 Seny Clever (Carlos Carrillo) · Apache License 2.0</p>
+<p style="margin-top:6px"><a href="https://github.com/senyclever/senysync-studio">GitHub</a> · <a href="app.html" data-es="Abrir la app" data-en="Launch app">Abrir la app</a> · <a href="https://github.com/senyclever/senysync-studio/blob/main/DONATIONS.md" data-es="Donaciones" data-en="Donations">Donaciones</a> · <a href="https://github.com/senyclever/senysync-studio/issues" data-es="Reportar un problema" data-en="Report an issue">Reportar un problema</a></p>
+</div></footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function(){
+var KEY='senysync_site_lang',cur='es',tmr=null;
+function T(es,en){return cur==='es'?es:en;}
+function toast(m){var t=document.getElementById('toast');t.textContent=m;t.classList.add('show');clearTimeout(tmr);tmr=setTimeout(function(){t.classList.remove('show');},2200);}
+function paint(l){
+cur=l;document.documentElement.lang=l;
+var n=document.querySelectorAll('[data-es]');
+for(var i=0;i<n.length;i++){var v=n[i].getAttribute(l==='es'?'data-es':'data-en');if(v!==null)n[i].textContent=v;}
+document.getElementById('langBtn').textContent=(l==='es'?'EN':'ES');
+document.title=T('SenySync Studio · Estudio local 4-en-1 para videoclips con IA','SenySync Studio · Local 4-in-1 studio for AI music videos');
+try{localStorage.setItem(KEY,l);}catch(e){}
+}
+try{var s=localStorage.getItem(KEY);cur=s||(((navigator.language||'es').toLowerCase().indexOf('es')===0)?'es':'en');}catch(e){}
+paint(cur);
+document.getElementById('langBtn').addEventListener('click',function(){paint(cur==='es'?'en':'es');});
+
+function fallbackCopy(txt){
+var ta=document.createElement('textarea');ta.value=txt;ta.setAttribute('readonly','');ta.style.position='fixed';ta.style.opacity='0';
+document.body.appendChild(ta);ta.select();var ok=false;
+try{ok=document.execCommand('copy');}catch(e){ok=false;}
+document.body.removeChild(ta);return ok;
+}
+var copies=document.querySelectorAll('.copy');
+for(var c=0;c<copies.length;c++)(function(b){
+b.addEventListener('click',function(){
+var a=b.getAttribute('data-addr');
+function done(ok){
+if(!ok){toast(T('No se pudo copiar. Selecciona la dirección a mano.','Could not copy. Select the address manually.'));return;}
+b.classList.add('done');b.textContent=T('✓ Copiado','✓ Copied');
+toast(T('Dirección copiada al portapapeles','Address copied to clipboard'));
+setTimeout(function(){b.classList.remove('done');b.textContent=T('Copiar','Copy');},1900);
+}
+if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(a).then(function(){done(true);},function(){done(fallbackCopy(a));});}
+else done(fallbackCopy(a));
+});
+})(copies[c]);
+
+var links=document.querySelectorAll('.navlink'),secs=[];
+for(var i=0;i<links.length;i++){var el=document.querySelector(links[i].getAttribute('href'));if(el)secs.push({a:links[i],el:el});}
+var tick=false;
+function spy(){
+tick=false;var y=(window.pageYOffset||document.documentElement.scrollTop)+120,best=null;
+for(var j=0;j<secs.length;j++){if(secs[j].el.offsetTop<=y)best=secs[j];}
+for(var k=0;k<secs.length;k++){if(best&&secs[k]===best)secs[k].a.classList.add('on');else secs[k].a.classList.remove('on');}
+}
+window.addEventListener('scroll',function(){if(!tick){tick=true;requestAnimationFrame(spy);}},{passive:true});
+spy();
+
+var reduce=false;
+try{reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;}catch(e){}
+if('IntersectionObserver' in window && !reduce){
+document.documentElement.classList.add('js-reveal');
+var io=new IntersectionObserver(function(en){
+for(var q=0;q<en.length;q++){if(en[q].isIntersecting){en[q].target.classList.add('is-in');io.unobserve(en[q].target);}}
+},{rootMargin:'0px 0px -8% 0px',threshold:0.06});
+var rv=document.querySelectorAll('.reveal');
+for(var r=0;r<rv.length;r++)io.observe(rv[r]);
+}
+})();
+</script>
+</body>
+</html>
