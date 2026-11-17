@@ -66,13 +66,9 @@ header{position:fixed;top:0;left:0;right:0;z-index:60;background:#0a0a12;border-
 .navact{display:flex;align-items:center;gap:7px;flex-shrink:0}
 .navlinks{display:flex;gap:7px;align-items:center;flex-wrap:nowrap}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;background:var(--panel2);border:1px solid var(--border);color:var(--txt);padding:9px 15px;border-radius:9px;font-size:13.5px;font-weight:600;cursor:pointer;min-height:42px;font-family:inherit;white-space:nowrap;touch-action:manipulation;transition:border-color .16s,color .16s,background-color .16s}
-.btn:hover{border-color:var(--cyan);color:var(--cyan);text-decoration:none}
-.btn:active{background:var(--panel3)}
 .btn.on{border-color:var(--cyan);color:var(--cyan);background:rgba(0,229,255,.12)}
 .btn.primary{background:linear-gradient(135deg,rgba(0,229,255,.2),rgba(255,46,136,.16));border-color:var(--cyan);color:var(--cyan)}
 .btn.big{min-height:56px;font-size:16.5px;padding:14px 26px}
-.btn.fx{font-family:var(--mono);font-size:12.5px;letter-spacing:.4px}
-.btn.fx.off{color:var(--dim);border-color:var(--border)}
 .sm{display:none}
 main{padding-top:calc(var(--nav) + 12px)}
 .hero{padding:50px 0 24px;text-align:center}
@@ -137,6 +133,8 @@ footer p{overflow-wrap:anywhere}
 .startside{position:sticky;top:calc(var(--nav) + 26px)}
 }
 @media(hover:hover) and (pointer:fine){
+.btn:hover{border-color:var(--cyan);color:var(--cyan);text-decoration:none}
+.btn:active{background:var(--panel3)}
 .card:hover{border-color:var(--cyan)}
 .card.m:hover{border-color:var(--mag)}
 .card.g:hover{border-color:var(--green)}
@@ -188,7 +186,6 @@ html{scroll-behavior:auto}
 <a class="btn navlink" href="#why" data-es="Ventajas" data-en="Why">Ventajas</a>
 <a class="btn navlink" href="#start" data-es="Empezar" data-en="Start">Empezar</a>
 <a class="btn navlink" href="#donate" data-es="Donar" data-en="Donate">Donar</a>
-<button class="btn fx on" id="fxBtn" type="button" aria-pressed="true" title="Efectos de fondo / Background effects">✦ <span data-es="Efectos" data-en="Effects">Efectos</span></button>
 </nav>
 </div></header>
 
@@ -289,9 +286,10 @@ html{scroll-behavior:auto}
 <script>
 (function(){
 'use strict';
-var LKEY='senysync_site_lang',FKEY='senysync_site_fx';
+var LKEY='senysync_site_lang';
 var root=document.documentElement,hdr=document.getElementById('hdr'),shot=document.getElementById('shot');
-var lang='es',lite=false,tmr=null,tick=false,navH=64,winH=800,shotTop=0,shotH=0,secTops=[],secs=[],mTimer=null;
+var lang='es',lite=false,tmr=null,tick=false,spyLock=0,sTimer=null;
+var navH=64,winH=800,shotTop=0,shotH=0,secTops=[],secs=[],mTimer=null;
 
 function T(a,b){return lang==='es'?a:b;}
 function toast(msg,warn){
@@ -313,29 +311,6 @@ return c.toDataURL('image/png');
 }catch(e){return '';}
 }
 
-function autoLite(){
-try{
-if(window.matchMedia){
-if(window.matchMedia('(prefers-reduced-motion: reduce)').matches)return true;
-if(window.matchMedia('(max-width: 640px)').matches)return true;
-}
-if(navigator.hardwareConcurrency&&navigator.hardwareConcurrency<=4)return true;
-if(navigator.deviceMemory&&navigator.deviceMemory<=4)return true;
-}catch(e){}
-return false;
-}
-function applyFx(){
-if(lite)root.classList.add('lite');else root.classList.remove('lite');
-var b=document.getElementById('fxBtn');
-if(b){
-b.className='btn fx '+(lite?'off':'on');
-b.setAttribute('aria-pressed',lite?'false':'true');
-b.title=lite?T('Efectos desactivados · pulsa para activar','Effects off · click to enable'):T('Efectos activados · pulsa para desactivar','Effects on · click to disable');
-}
-if(!lite)shot&&shot.style.removeProperty('transform');
-else if(shot)shot.style.transform='none';
-}
-
 function measure(){
 var h=hdr?hdr.offsetHeight:64;
 if(h>0&&h!==navH){navH=h;root.style.setProperty('--nav',h+'px');}
@@ -347,14 +322,18 @@ if(shot){var r=shot.getBoundingClientRect();shotTop=r.top+sy;shotH=r.height||0;}
 }
 function qMeasure(){clearTimeout(mTimer);mTimer=setTimeout(function(){measure();frame();},60);}
 
-function spyAt(sy){
-var y=sy+navH+30,best=-1,i;
-for(i=0;i<secTops.length;i++){if(secTops[i]<=y)best=i;}
-for(i=0;i<secs.length;i++){
-var on=(i===best);
+function setActive(idx){
+for(var i=0;i<secs.length;i++){
+var on=(i===idx);
 if(on){secs[i].a.classList.add('on');secs[i].a.setAttribute('aria-current','true');}
 else{secs[i].a.classList.remove('on');secs[i].a.removeAttribute('aria-current');}
 }
+}
+function spyAt(sy){
+if(Date.now()<spyLock)return;
+var y=sy+navH+30,best=-1,i;
+for(i=0;i<secTops.length;i++){if(secTops[i]<=y)best=i;}
+setActive(best);
 }
 function frame(){
 tick=false;
@@ -366,7 +345,10 @@ p=p<0?0:(p>1?1:p);
 shot.style.transform='translate3d(0,'+((p-0.5)*-16).toFixed(2)+'px,0)';
 }
 }
-function onScroll(){if(!tick){tick=true;requestAnimationFrame(frame);}}
+function onScroll(){
+if(!tick){tick=true;requestAnimationFrame(frame);}
+clearTimeout(sTimer);sTimer=setTimeout(function(){measure();frame();},180);
+}
 
 function paint(l){
 lang=l;root.lang=l;
@@ -374,7 +356,7 @@ var n=document.querySelectorAll('[data-es]'),i,v;
 for(i=0;i<n.length;i++){v=n[i].getAttribute(l==='es'?'data-es':'data-en');if(v!==null)n[i].textContent=v;}
 var lb=document.getElementById('langBtn');if(lb)lb.textContent=(l==='es'?'EN':'ES');
 document.title=T('SenySync Studio · Estudio local 4-en-1 para videoclips con IA','SenySync Studio · Local 4-in-1 studio for AI music videos');
-store(LKEY,l);applyFx();qMeasure();
+store(LKEY,l);qMeasure();
 }
 
 function fallbackCopy(txt){
@@ -387,11 +369,10 @@ var ok=false;try{ok=document.execCommand('copy');}catch(e){ok=false;}
 document.body.removeChild(ta);return ok;
 }
 
-var savedFx=read(FKEY);
-lite=(savedFx==='0')?true:(savedFx==='1')?false:autoLite();
+try{lite=!!(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches);}catch(e){lite=false;}
+if(lite)root.classList.add('lite');
 var g=grainURL();
-if(g)root.style.setProperty('--grain','url("'+g+'")');
-applyFx();
+if(g&&!lite)root.style.setProperty('--grain','url("'+g+'")');
 
 var savedLang=read(LKEY);
 lang=savedLang||(((navigator.language||'es').toLowerCase().indexOf('es')===0)?'es':'en');
@@ -420,10 +401,12 @@ navigator.clipboard.writeText(a).then(function(){done(true);},function(){done(fa
 
 for(var q=0;q<links.length;q++)(function(a){
 a.addEventListener('click',function(){
+var idx=-1;
+for(var i=0;i<secs.length;i++){if(secs[i].a===a)idx=i;}
+if(idx>=0){setActive(idx);spyLock=Date.now()+1100;}
 var strip=a.parentNode;
 if(strip&&strip.scrollWidth>strip.clientWidth+2){
-var want=a.offsetLeft-(strip.clientWidth-a.offsetWidth)/2;
-want=Math.max(0,want);
+var want=Math.max(0,a.offsetLeft-(strip.clientWidth-a.offsetWidth)/2);
 try{strip.scrollTo({left:want,behavior:lite?'auto':'smooth'});}catch(e){strip.scrollLeft=want;}
 }
 });
@@ -431,12 +414,6 @@ try{strip.scrollTo({left:want,behavior:lite?'auto':'smooth'});}catch(e){strip.sc
 
 var lb=document.getElementById('langBtn');
 if(lb)lb.addEventListener('click',function(){paint(lang==='es'?'en':'es');});
-
-var fb=document.getElementById('fxBtn');
-if(fb)fb.addEventListener('click',function(){
-lite=!lite;store(FKEY,lite?'0':'1');applyFx();frame();
-toast(lite?T('Efectos desactivados · modo ligero','Effects off · light mode'):T('Efectos activados','Effects on'));
-});
 
 paint(lang);
 measure();frame();
